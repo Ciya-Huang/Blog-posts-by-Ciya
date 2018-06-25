@@ -8,5 +8,5 @@
 
 2018-6-23  [详解现代浏览器工作原理](https://github.com/Ciya-Huang/Blog-posts-by-Ciya/blob/master/详解现代浏览器工作原理.md)    
 
-2018-6-25  [FreeCodeCamp记录之简单算法](https://github.com/Ciya-Huang/Blog-posts-by-Ciya/blob/master/FCC记录之简单算法.md)   
+2018-6-25  [FreeCodeCamp记录之简单算法](https://github.com/Ciya-Huang/Blog-posts-by-Ciya/blob/master/FreeCodeCamp记录之简单算法.md)   
 
