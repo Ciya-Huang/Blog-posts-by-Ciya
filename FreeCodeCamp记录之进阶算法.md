@@ -2,6 +2,8 @@
 
 记录Ciya完成FreeCodeCamp进阶算法部分的代码，点击蓝色链接可查看题面详情。
 
+PS：18.8.5日为部分题目更新了更优解法，感谢小伙伴们为我带来了一些新思路٩(๑❛ᴗ❛๑)۶
+
 1. [Sum All Numbers in a Range](https://www.freecodecamp.cn/challenges/sum-all-numbers-in-a-range) ：计算区间整数和
 
    传入一个包含两个整数的数组。返回这两个数字和它们之间所有数字的和。最小的数字并非总在最前面。
@@ -10,7 +12,7 @@
    function sumAll(arr) {
      //由大到小
      arr.sort( (a,b) => a-b );
-     for( let i = arr[0],sum=0; i<= arr[1]; i++ ){
+     for(let i = arr[0], sum = 0; i <= arr[1]; i++){
      	sum += i ;
      }
      return sum;
@@ -27,12 +29,9 @@
 
    ```js
    function diff(arr1, arr2) {
-     //理论上返回的元素应不重复
-     let newArr = new Set();
-     arr1.forEach( n => { if( arr2.indexOf(n)=== -1 )newArr.add(n) });
-     arr2.forEach( n => { if( arr1.indexOf(n)=== -1 )newArr.add(n) });
-     newArr = [...newArr];
-     return newArr;
+     let arrDiff1 = arr1.filter( n => arr2.indexOf(n) === -1 );
+     let arrDiff2 = arr2.filter( n => arr1.indexOf(n) === -1 );
+    return [...new Set([...arrDiff1, ...arrDiff2])];
    }
    //测试用例之一
    diff([1, 2, 3, 5], [1, 2, 3, 4, 4, 5]);//[4]
@@ -45,15 +44,14 @@
    所有返回的 [罗马数字](http://www.mathsisfun.com/roman-numerals.html) 都应该是大写形式。
 
    ```js
-   
    function convert(num) {
      //1,5,10,50,100,500,1000,(更大数值往后添加对应字符即可扩充)
      let units = ["I","V","X","L","C","D","M"];
      //把入参拆分为数字数组,高位至低位
-     let numArr = ( num + "" ).split("").map( n => n - 0 );
+     let numArr = (num + "").split("").map(n => n - 0);
      //把每个位的数组转换为对应字符串
-     numArr = numArr.map( ( n,index ) => {
-       let baseindex = ( numArr.length-1 - index ) * 2;
+     numArr = numArr.map(( n,index ) => {
+       let baseindex = (numArr.length-1 - index) * 2;
        let outchar = "";
        if(n > 3) {
          if(n === 9) return units[baseindex] + units[baseindex + 2];
@@ -167,7 +165,7 @@
      //将输入拆分为数组
      var arr = str.split("");
      //将数组里的 字符修订为含配对的数组
-     return arr.map( char => [ char, match[char] ] );
+     return arr.map( char => [char, match[char]] );
    }
    //测试用例之一
    pair("GCG");//[["G", "C"],  ["C", "G"], ["G", "C"]]
@@ -185,12 +183,12 @@
    function fearNotLetter(str) {  
      let full = [];
      //取第一个字符,第二个字符 生成全字符序列(除首尾字母)
-     for (let i = str.charCodeAt(str.length-1)-1; i > str.charCodeAt(0); i-- ){
+     for (let i = str.charCodeAt(str.length - 1) - 1; i > str.charCodeAt(0); i-- ){
        full.unshift(String.fromCharCode(i));
      }    
      //收集原字符串中缺失的字母
-     let miss = full.filter( char => str.indexOf(char)===-1 ).join("");
-     return miss==="" ? undefined : miss;
+     let miss = full.filter(char => str.indexOf(char) === -1).join("");
+     return miss === "" ? undefined : miss;
    }
    //测试用例之一
    fearNotLetter("abce");//d
@@ -200,7 +198,7 @@
 
    ```JS
    function boo(bool) {
-     return bool===true || bool===false ;
+     return bool === true || bool === false ;
    }
    //测试用例之一
    boo(null);//false
@@ -218,10 +216,8 @@
 
     ```js
       function unite(...arr) {
-        //拼接数组
-        arr = arr.reduce( (pre,next)=>pre.concat(next) );
-        //通过Set对象去重 再转为数组输出
-        return [...new Set(arr)];
+        // 拼接数组 通过Set对象去重 再转为数组输出
+        return [...new Set([].concat(...arr))];
       }
       //测试用例之一
       unite([1, 3, 2], [5, 2, 1, 4], [2, 1])//[1,3,2,5,4]
@@ -247,7 +243,7 @@
       let keyArr = Object.keys(entities);
       //为每个字符查找并替换一遍输入
       keyArr.forEach( key => {
-        str = str.replace( new RegExp(key ,"g") , entities[key] );
+        str = str.replace(new RegExp(key ,"g"), entities[key]);
       });
       return str;
     }
@@ -296,7 +292,7 @@
         nextnum = arr[0] + arr[1];
       }
       arr.unshift(0);//塞入0以保证数组每个数都经过偶数判断
-      return arr.reduce( ( a, b ) => ( b%2 ? a + b : a) );
+      return arr.reduce( ( a, b ) => ( b % 2 ? a + b : a) );
     }
     //测试用例
     sumFibs(4000000);//4613732
@@ -308,9 +304,9 @@
       let sum = 2;
       let arr = [1,1];
       if(num < 1)return 0;
-      while( arr[0] + arr[1] <= num ){
-        arr = [ arr[1], arr[0] + arr[1] ];
-        sum += arr[1]%2 ? arr[1] : 0 ;
+      while(arr[0] + arr[1] <= num){
+        arr = [arr[1], arr[0] + arr[1]];
+        sum += arr[1] % 2 ? arr[1] : 0 ;
       }
       return sum;
     }
@@ -332,9 +328,9 @@
       if( num < 3 ) return 2;
       let primes = [2];
       //生成质数数列（判断是否质数只需判断该数能否被小于自身的所有质数整除）
-      for(let i=3, isPrimes; i <= num; i++ ){
+      for(let i = 3, isPrimes; i <= num; i++ ){
         isPrimes = true;
-        for( let j=0 ; j < primes.length ; j++ ){
+        for( let j = 0; j < primes.length; j++ ){
           if( i % primes[j] === 0 ) isPrimes = false;
         }
         if(isPrimes)primes.push(i);
@@ -364,7 +360,7 @@
       for (let i = arr[1] + 1; i < arr[0] ; i++) {
         arr.splice(1, 0, i);
       }
-      //通过累计器计算多数的最小公倍数
+      //通过reduce计算多数的最小公倍数
       return arr.reduce( LCM );
     }
     //求两数最大公约数 辗转相除法(greatest common divisor)
@@ -391,7 +387,7 @@
     //求多个数的最小公倍数 参数以为逗号分隔的任意个正整数
     function MultiLCM(...arr){
       //大数放前面,降低后续计算量
-      arr.sort( (a,b) => b-a );
+      arr.sort((a,b) => b-a);
       return arr.reduce( LCM );
     } 
     ```
@@ -402,8 +398,8 @@
 
     ```JS
     function find(arr, func) {
-      for ( var i = 0 ; i < arr.length ; i++ ){
-        if( func(arr[i]) ) return arr[i];
+      for (var i = 0; i < arr.length; i++){
+        if(func(arr[i])) return arr[i];
       }
       return undefined;
     }
@@ -423,8 +419,8 @@
 
     ```JS
     function drop(arr, func) {
-      while( arr.length > 0 ){
-        if( func(arr[0]) )break;
+      while(arr.length > 0){
+        if(func(arr[0]))break;
         arr.shift();
       }
       return arr;
