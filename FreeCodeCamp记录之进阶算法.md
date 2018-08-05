@@ -45,6 +45,7 @@
    所有返回的 [罗马数字](http://www.mathsisfun.com/roman-numerals.html) 都应该是大写形式。
 
    ```js
+   
    function convert(num) {
      //1,5,10,50,100,500,1000,(更大数值往后添加对应字符即可扩充)
      let units = ["I","V","X","L","C","D","M"];
@@ -57,18 +58,13 @@
        if(n > 3) {
          if(n === 9) return units[baseindex] + units[baseindex + 2];
          if(n === 4) return units[baseindex] + units[baseindex + 1];
-         return units[baseindex + 1] + repeat( units[baseindex] , n % 5);
+         return units[baseindex + 1] + units[baseindex].repeat(n % 5);
        }
-       return repeat(units[baseindex] , n % 5);
+       return units[baseindex].repeat(n % 5);
      });   
     return numArr.join("");
    }
-   //自定义函数: 重复str字符串n次
-   let repeat = function f (str, n){
-     if (n <= 0)return "";
-     if (n === 1)return str;
-     return str + f(str, n-1);
-   }
+   
    //测试用例之一
    convert(3999);//MMMCMXCIX
    ```
@@ -84,11 +80,11 @@
    ```JS
    function where(collection, source) {
      //遍历collection数组中的对象,只保留包含source所有键值对的对象
-     let arr = collection.filter( obj => {
+     let arr = collection.filter(obj => {
        //遍历source中的键
-       for( key of Object.keys(source)){
+       for(key of Object.keys(source)){
          //判断当前对象是否包含相同键值对,不包含则不保留
-         if( obj[key] !== source[key]) return false;
+         if(obj[key] !== source[key])return false;
        }
        //保留包含source所有键值对的对象
        return true;
@@ -174,7 +170,7 @@
      return arr.map( char => [ char, match[char] ] );
    }
    //测试用例之一
-   pair("GCG");//[ ["G", "C"],  ["C", "G"], ["G", "C"] ]
+   pair("GCG");//[["G", "C"],  ["C", "G"], ["G", "C"]]
    ```
 
    
@@ -267,20 +263,10 @@
 
     ```js
     function spinalCase(str) {
-      str =str.replace( /[^a-zA-Z]/g,"-");
-      //大写字母分隔情景
-      if(str.indexOf("-")===-1){
-        //搜寻每一个大写字母，直到不存在大写字母
-        var index = str.search(/[A-Z]/);     
-        while( index!==-1 ){
-          //替换大写字母为小写 行首的大写字母前不加连字符
-          if( index === 0 ) str= str[index].toLowerCase() + str.substr(index);
-          else str = str.substr( 0, index ) + "-" + 
-                str[index].toLowerCase()+str.substr(index+1);
-          index = str.search(/[A-Z]/);
-        }
-      }
-      return str.toLowerCase();//为非“大写字母分隔情景”小写化
+       str = str.replace( /[^a-zA-Z]/g,"-");
+        //大写字母分隔情景
+       if(str.indexOf("-") === -1)str = str.replace(/[A-Z]/g, char => "-" + char).trim("-");
+       return str.toLowerCase();
     }
     //测试用例
     spinalCase("thisIsSpinalTap"); //this-is-spinal-tap
@@ -460,8 +446,8 @@
     ```JS
     function steamroller(arr) {
       let outArr = [];
-      arr.map( (item) =>{
-        Array.isArray(item) ? outArr.push( ...steamroller(item) ) : outArr.push( item );
+      arr.map((item) => {
+        Array.isArray(item) ? outArr.push(...steamroller(item)) : outArr.push(item);
       });
       return outArr;
     }
@@ -469,7 +455,7 @@
     steamroller([1, [2], [3, [[4]]]]);//[1,2,3,4]
     ```
 
-    其中`outArr.push( ...steamroller(item) )`替换成`outArr = outArr.concat( steamroller(item) )`亦可。
+    其中`outArr.push(...steamroller(item))`替换成`outArr = outArr.concat(steamroller(item))`亦可。
 
     
 
@@ -479,7 +465,7 @@
 
     ```JS
     function binaryAgent(str) {
-      let charArr = str.split(" ").map( char => String.fromCharCode( parseInt( char ,2) ) );
+      let charArr = str.split(" ").map( char => String.fromCharCode(parseInt(char, 2)) );
       return charArr.join("");
     }
     //测试用例之一
@@ -494,7 +480,7 @@
 
     ```JS
     function every(collection, pre) {
-      return collection.every( obj => obj[pre] );
+      return collection.every(obj => obj[pre]);
     }
     //测试用例之一
     every([{"user": "Tinky-Winky", "sex": "male", "age": 0}, {"user": "Dipsy", "sex": "male", "age": 3}, {"user": "Laa-Laa", "sex": "female", "age": 5}, {"user": "Po", "sex": "female", "age": 4}], "age")//false
@@ -513,11 +499,11 @@
     ```JS
     function add(...nums) {
       //存在非数字则返回undefined
-      if( nums.some( num => num !== +num ) ) return undefined;
+      if(nums.some(num => num !== +num)) return undefined;
       //一个数 
-      if (nums.length === 1) return (n => n === +n ? nums[0]+n : undefined );
+      if (nums.length === 1) return (n => n === +n ? nums[0] + n : undefined);
       //两个数
-      return nums[0]+nums[1];
+      return nums[0] + nums[1];
     }
     //测试用例之一
     add(2)([3])//undefined
