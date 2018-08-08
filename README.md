@@ -12,3 +12,4 @@
 
 2018-8-02  [FreeCodeCamp记录之进阶算法](https://github.com/Ciya-Huang/Blog-posts-by-Ciya/blob/master/FreeCodeCamp记录之进阶算法.md) 
 
+2018-8-08  [FreeCodeCamp记录之高级算法](https://github.com/Ciya-Huang/Blog-posts-by-Ciya/blob/master/FreeCodeCamp记录之高级算法.md) 

@@ -440,15 +440,15 @@ PS：18.8.5日为部分题目更新了更优解法，感谢小伙伴们为我带
     `steamroller([1, {}, [3, [[4]]]])` 应该返回 `[1, {}, 3, 4]`。
 
     ```JS
-    function steamroller(arr) {
-      let outArr = [];
-      arr.map((item) => {
-        Array.isArray(item) ? outArr.push(...steamroller(item)) : outArr.push(item);
-      });
-      return outArr;
-    }
-    //测试用例之一
-    steamroller([1, [2], [3, [[4]]]]);//[1,2,3,4]
+        function steamroller(arr) {
+          let outArr = [];
+          arr.forEach((item) => {
+            Array.isArray(item) ? outArr.push(...steamroller(item)) : outArr.push(item);
+          });
+          return outArr;
+        }
+        //测试用例之一
+        steamroller([1, [2], [3, [[4]]]]);//[1,2,3,4]
     ```
 
     其中`outArr.push(...steamroller(item))`替换成`outArr = outArr.concat(steamroller(item))`亦可。
